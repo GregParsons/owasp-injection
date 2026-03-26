@@ -1,11 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A05:2025 Injection</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>A05:2025 Injection</title>
+        <link rel="stylesheet" href="slide-deck.css" />
+        <link rel="stylesheet" href="app.css" />
+        <script type="module" src="slide-deck.js"></script>
+    </head>
+    <body>
+        <slide-deck id="injection" key-control slide-view="fancy">
+            <header>
+                <div class="slide">
+                    <h1>A05:2025 Injection</h1>
+                    <img src="injection.webp" alt="" style="max-width: 900px" />
+                </div>
+            </header>
+            <div>
+                <div class="slide">
+                    <h2>What is Injection?</h2>
+                    <p>
+                        Injection is an attacker's attempt to send data to an
+                        application in a way that will change the meaning of
+                        commands being sent to an interpreter.
+                    </p>
+                    <img src="code-injection.jpg" alt="" />
+                    <p>
+                        An interpreter can be a browser, application, database
+                        or command line that executes user input via form input
+                        fields, query parameters, headers, cookies or file
+                        uploads.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="slide">
+                    <h2>Types of Injection</h2>
+                    <p>
+                        There are many types of injection vulnerability,
+                        including:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>SQL Injection</strong> - modifying a SQL
+                            command to retrieve unintended or unauthorised data
+                            from, or cause damage to a database
+                        </li>
+                        <li>
+                            <strong>Cross-Site Scripting (XSS)</strong> -
+                            inserting malicious JavaScript that runs when user
+                            visits a site
+                        </li>
+                        <li>
+                            <strong>Command Injection</strong> - mimicing
+                            commands that the web application would normally
+                            send to the operating system
+                        </li>
+                        <li>
+                            <strong>XPath Injection</strong> - similar to SQL
+                            injection but for XML databases
+                        </li>
+                        <li>
+                            <strong>LDAP Injection</strong> - execution of
+                            arbitrary commands such as granting permissions to
+                            unauthorized queries from a single sign-on system
+                        </li>
+                        <li>
+                            <strong>Mail Command Injection</strong> - exploit
+                            email servers and services that build IMAP and SMTP
+                            statements to send spam messages
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="slide">
+                    <h2>Example: XSS</h2>
+                    <p>
+                        A common feature of websites and applications is
+                        allowing user created data to be submitted and displayed
+                        to other users. If this data is not properly sanitised,
+                        a malicious user can inject HTML or JavaScript.
+                    </p>
+                    <form>
+                        <label>
+                            Enter your name
+                            <input type="text" />
+                        </label>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <h3>Result:</h3>
+                    <div class="output"></div>
+                    <script>
+                        const form = document.querySelector("form");
+                        const output = document.querySelector(".output");
+                        form.addEventListener("submit", (e) => {
+                            e.preventDefault();
+                            output.innerHTML = `name: ${e.target[0].value}`;
+                        });
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="slide">
+                    <h2>Example: SQL Injection</h2>
+                    <p>
+                        A SQL query is contructed using input from the user, in
+                        this case, the user's email address.
+                    </p>
+                    <code
+                        >SELECT credit_card_number FROM credit_cards WHERE user
+                        = {email};</code
+                    >
+                    <p>
+                        If the user enters a malicious input, they can alter the
+                        SQL query:
+                    </p>
+                    <label>
+                        Email address
+                        <input
+                            type="text"
+                            value="gregory.parsons@otago.ac.nz OR 1 = 1"
+                            readonly
+                        />
+                    </label>
+
+                    <p>Resulting in a modified query:</p>
+                    <code
+                        >SELECT credit_card_number FROM credit_cards WHERE user
+                        = gregory.parsons@otago.ac.nz OR 1 = 1;</code
+                    >
+                    <p>
+                        This will potentially return every record in the
+                        credit_cards table.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="slide">
+                    <h2>Preventing Injections</h2>
+                    <p>
+                        The most important rule is
+                        <strong>do not trust the user</strong>. Assume they can
+                        and will do everything to attack and break your
+                        application. Some of the methods to protect against
+                        injection vulnerabilites include:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Input Validation</strong> - If you are
+                            expect the input to follow a certain pattern,
+                            enforce this, where possible.
+                        </li>
+                        <li>
+                            <strong>Query Parameterization</strong> - Don't use
+                            raw SQL queries. Instead, use query parameterization
+                            to prepare, validate and sanitise your query.
+                        </li>
+                        <li>
+                            <strong>Output Encoding</strong> - Encode the output
+                            by escaping characters.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </slide-deck>
+    </body>
 </html>

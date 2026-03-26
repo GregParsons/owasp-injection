@@ -1,0 +1,67 @@
+slide-deck:not(:defined) {
+  display: grid;
+
+  > * {
+    border-block-end: thin solid;
+  }
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  color: darkblue;
+  font-family: sans-serif;
+  font-size: 2rem;
+  margin: 0;
+}
+
+[slide-canvas] {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.slide {
+  aspect-ratio: 16/9;
+  height: 100%;
+  max-height: 900px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin: 3rem auto;
+}
+
+li {
+  margin-block-end: 1rem;
+}
+label {
+  color: black;
+  font-size: 1.75rem;
+}
+
+input[type="text"] {
+  width: 100%;
+}
+
+input[type="text"],
+button {
+  display: block;
+  font-size: 2rem;
+  margin-block: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+code {
+  background-color: pink;
+  display: block;
+  padding: 0.5rem 1rem;
+}
